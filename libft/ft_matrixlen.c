@@ -17,7 +17,7 @@ int	ft_matrixlen(void **matrix)
 	int	counter;
 
 	counter = 0;
-	while (matrix[counter] != NULL)
+	while ((char *)matrix[counter] != NULL)
 	{
 		counter++;
 	}

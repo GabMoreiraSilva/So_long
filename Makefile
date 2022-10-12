@@ -1,13 +1,14 @@
 NAME= a.out
 CC= cc
-FLAGMLX= -lm -lbsd -lmlx -lXext -lX11
+FLAGMLX= -lm -lbsd -lXext -lX11
 CFLAGS= -Wall -Wextra -Werror
 SRCS = main.c
 OBJS = ${SRCS:.c=.o}
 RM = rm -rf
 LIB = libft/libft.a
+MLX = minilibx-linux/libmlx.a
 
-all: ${NAME}
+all: ${NAME} ${LIB} ${MLX}
 
 ${NAME}: ${OBJS} ${LIB}
 	${CC} -g3 ${OBJS} ${LIB} -o ${NAME} ${FLAGMLX}
@@ -17,6 +18,9 @@ ${NAME}: ${OBJS} ${LIB}
 
 ${LIB}:
 	make -C libft
+
+${MLX}:
+	make -C minilibx-linux
 
 clean:
 	${RM} ${OBJS}
