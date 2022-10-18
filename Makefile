@@ -1,4 +1,4 @@
-NAME= a.out
+NAME= fdf
 CC= cc
 FLAGMLX= -lm -lbsd -lXext -lX11
 CFLAGS= -Wall -Wextra -Werror
