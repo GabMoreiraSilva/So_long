@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_freearray.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmoreira <gmoreira@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 22:29:24 by gmoreira          #+#    #+#             */
-/*   Updated: 2022/10/09 19:32:39 by gmoreira         ###   ########.fr       */
+/*   Updated: 2022/10/18 21:04:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	ft_freearray(void **ptr)
 {
 	int	index;
 	
+	if (!ptr)
+		return ;
 	index = 0;
 	while (ptr[index] != NULL)
 	{

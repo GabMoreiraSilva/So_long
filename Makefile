@@ -1,4 +1,4 @@
-NAME= fdf
+NAME= so_long
 CC= cc
 FLAGMLX= -lm -lbsd -lXext -lX11
 CFLAGS= -Wall -Wextra -Werror

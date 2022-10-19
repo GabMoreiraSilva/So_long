@@ -3,6 +3,7 @@
 
 # include <fcntl.h>
 # include <math.h>
+#include <string.h>
 # include "./libft/libft.h"
 
 typedef struct s_window
