@@ -26,6 +26,7 @@ int	check_size(t_map *map)
 		line = get_next_line(fd);
 	}
 	close(fd);
+	return (0);
 }
 
 void	get_map(t_map *map)
@@ -53,13 +54,27 @@ void	get_map(t_map *map)
 	}
 }
 
+void	free_map(t_map *map)
+{
+	int	row;
+
+	row = 0;
+	while (row < map->height)
+	{
+		ft_freeptr(map->map[row]);
+		row++;
+	}
+	ft_freeptr(map->map);
+}
+
 void	create_map(t_map *map)
 {
 	int	height;
 
-	map->map = malloc(sizeof(char*) * map->height);
+	map->map = malloc(sizeof(char*) * map->height + 1);
 	if(!map->map)
 		return ;
+	map->map[map->height] = NULL;
 	height = 0;
 	while(height < map->height)
 	{
@@ -98,16 +113,77 @@ int check_walls(t_map *map)
 	return(0);
 }
 
+int count_elements(t_map *map)
+{
+	int	column;
+	int	row;
+
+	row = 0;
+	while(map->map[row])
+	{
+		column = 0;
+		while (map->map[row][column] != '\n')
+		{
+			if (map->map[row][column] == 'P')
+			{
+				map->infos_map.player_number++;
+				map->infos_map.player_position[0] = row;
+				map->infos_map.player_position[1] = column;
+			}
+			if (map->map[row][column] == 'C')
+				map->infos_map.collectible++;
+			if (map->map[row][column] == 'E')
+				map->infos_map.exits++;
+			if ((map->map[row][column] != 'E') && (map->map[row][column] != 'C')
+				&& (map->map[row][column] != 'P') && (map->map[row][column] != '1')
+				&& (map->map[row][column] != '0'))
+				return (1);
+			column++;
+		}
+		row++;
+	}
+	return (0);
+}
+
+int check_elements(t_map *map)
+{
+	if((map->infos_map.player_number != 1) || (map->infos_map.exits != 1) || (map->infos_map.collectible <= 0))
+		return (1);
+	return (0);
+}
+
+int	init_var_infos_map(t_map *map)
+{
+	map->infos_map.player_number = 0;
+	map->infos_map.collectible = 0;
+	map->infos_map.exits = 0;
+	if(count_elements(map))
+	{
+		free_map(map);
+		return (1);
+	}
+	if(check_elements(map))
+	{
+		free_map(map);
+		return (1);
+	}
+	return(0);
+}
+
 int	check_create_map(t_map *map)
 {
-	if(check_size(map))
-		return (1);
+	check_size(map);
 	create_map(map);
 	if (!map->map)
 		return (1);
 	get_map(map);
-	check_walls(map);
-	// check_elements(map);
+	if(check_walls(map))
+	{
+		free_map(map);
+		return (1);
+	}
+	if(init_var_infos_map(map))
+		return (1);
 }
 
 int	main(int argc, char **argv)
@@ -115,21 +191,13 @@ int	main(int argc, char **argv)
 	t_data	data;
 
 	if (argc != 2)
-	{
-		ft_printf("Error\nParams Wrong: %s\n", strerror(5));
-		return (0);
-	}
+		return (ft_printf("Error\nParams Wrong: %s\n", strerror(5)));
 	if (valid_ext(argv[1]))
-	{
-		ft_printf("Error\nWrong Extension: %s\n", strerror(2));
-		return (0);
-	}
+		return (ft_printf("Error\nWrong Extension: %s\n", strerror(2)));
 	data.map.path = argv[1];
 	if(check_create_map(&data.map))
-	{
-		ft_printf("Error\nWrong Extension: %s\n", strerror(59));
-		return (0);
-	}
+		return (ft_printf("Error\nWrong Extension: %s\n", strerror(59)));
+	ft_printf("Player: %d Collectible: %d Exits: %d\n", data.map.infos_map.player_number, data.map.infos_map.collectible, data.map.infos_map.exits);
 	int a = 0;
 	for (size_t i = 0; i < data.map.height; i++)
 	{
