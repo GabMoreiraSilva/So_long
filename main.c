@@ -47,7 +47,7 @@ void	get_map(t_map *map)
 			map->map[row][column] = line[column];
 			column++;
 		}
-		ft_freeptr(line);
+		ft_freeptr((void *)line);
 		line = get_next_line(fd);
 		row++;
 	}
@@ -68,7 +68,35 @@ void	create_map(t_map *map)
 	}
 }
 
+int check_walls(t_map *map)
+{
+	int	row;
+	int	column;
 
+	row = 0;
+	column = 0;
+	while (row < map->height)
+	{
+		while (column < map->width)
+		{
+			if ((map->map[row][column] != '1') || (map->map[row][0] != '1'))
+				return (1);
+			if (column < map->width)
+				column++;
+		}
+		column--;
+		row++;
+	}
+	row--;
+	column = 0;
+	while (column < map->width)
+	{
+		if (map->map[row][column] != '1')
+			return (1);
+		column++;
+	}
+	return(0);
+}
 
 int	check_create_map(t_map *map)
 {
@@ -78,7 +106,7 @@ int	check_create_map(t_map *map)
 	if (!map->map)
 		return (1);
 	get_map(map);
-	// check_walls(map);
+	check_walls(map);
 	// check_elements(map);
 }
 
@@ -87,12 +115,21 @@ int	main(int argc, char **argv)
 	t_data	data;
 
 	if (argc != 2)
+	{
 		ft_printf("Error\nParams Wrong: %s\n", strerror(5));
+		return (0);
+	}
 	if (valid_ext(argv[1]))
+	{
 		ft_printf("Error\nWrong Extension: %s\n", strerror(2));
+		return (0);
+	}
 	data.map.path = argv[1];
 	if(check_create_map(&data.map))
+	{
 		ft_printf("Error\nWrong Extension: %s\n", strerror(59));
+		return (0);
+	}
 	int a = 0;
 	for (size_t i = 0; i < data.map.height; i++)
 	{
