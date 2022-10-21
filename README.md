@@ -24,7 +24,7 @@ Após espumar de raiva quase 2 meses com FDF pedi água e vim para o So_Long
   - P: Posição inicial do jogador
 - Regras minimas para um mapa ser válido
   - Uma Saída
-  - Um coletável
+  - Ao menos um coletável
   - Uma posição inicial
   - O mapa precisa ser retangular
   - O mapa precisa ser rodeado por paredes
@@ -34,3 +34,11 @@ Após espumar de raiva quase 2 meses com FDF pedi água e vim para o So_Long
 Temos nossa primeira etapa
 
 <img width=100 src="https://c.tenor.com/10OKiBL__N4AAAAj/capoo-bug-cat.gif" />
+
+## ETAPA 1 CONCLUIDA 🎉🥳🎊
+
+
+<img width=250 src="https://media.tenor.com/BQMUtflqcTsAAAAM/grand-blue-cheers.gif" />
+
+## ETAPA 2 SOON
+
