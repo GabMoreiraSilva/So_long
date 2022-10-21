@@ -1,4 +1,4 @@
-# So_long
+  # So_long
 Projeto So_long
 
 Após espumar de raiva quase 2 meses com FDF pedi água e vim para o So_Long
@@ -40,5 +40,17 @@ Temos nossa primeira etapa
 
 <img width=250 src="https://media.tenor.com/BQMUtflqcTsAAAAM/grand-blue-cheers.gif" />
 
-## ETAPA 2 SOON
+# ETAPA 2
+Hey familia, agora vem a parte para me trazer a vontade de fazer esse projeto, render, está na hora de fazer o render do projeto, fiz as sprites a mão e se eu gostar e me sobrar tempo eu faço animação, mas por enquanto hora do render
+
+## Render
+- Iniciar o mlx
+- Carregar as sprites?
+- Colocar as sprites na tela
+
+Percalço, odiar do fundo da alma a minilibx
+
+Bom já temos o objetivo
+
+<img width=160 src="https://media4.giphy.com/media/RbDKaczqWovIugyJmW/giphy.gif?cid=ecf05e47ppvdfs5rdxg4qsec46wmzqdmq0m7d70q70yw35oq&rid=giphy.gif&ct=g" />
 
