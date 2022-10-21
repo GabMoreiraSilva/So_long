@@ -186,6 +186,44 @@ int	check_create_map(t_map *map)
 		return (1);
 }
 
+void	place_sprites(t_window *window, t_sprites *sprites)
+{
+	sprites->wall = mlx_xpm_file_to_image(window->mlx_ptr,
+			".sprites/Wall.xpm", 64, 64);
+	sprites->collectible = mlx_xpm_file_to_image(window->mlx_ptr,
+			".sprites/Collect.xpm", 64, 64);
+	sprites->exits[0] = mlx_xpm_file_to_image(window->mlx_ptr,
+			".sprites/exit_close.xpm", 64, 64);
+	sprites->exits[1] = mlx_xpm_file_to_image(window->mlx_ptr,
+			".sprites/exit_open.xpm", 64, 64);
+}
+
+void	render_map(t_window *window, t_map *map_info, t_sprites *sprites)
+{
+	//render passing throw the map while print
+}
+
+int	action_loop(t_data *data)
+{
+	render_map(&data->window, &data->map, &data->sprites);
+	return (0);
+}
+
+int	init_game(t_data *data)
+{
+	data->window.mlx_ptr = mlx_init();
+	if (data->window.mlx_ptr == NULL)
+		return (1);
+	data->window.mlx_win = mlx_new_window(data->window.mlx_ptr, (data->map.width * 64), (data->map.height * 64) + 1, "so long");
+	if (data->window.mlx_win == NULL)
+	{
+		ft_freeptr(data->window.mlx_win);
+		return (1);
+	}
+	place_sprites(&data->window, &data->sprites);
+	mlx_loop_hook(data->window.mlx_ptr, action_loop, (void *)data);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -197,6 +235,7 @@ int	main(int argc, char **argv)
 	data.map.path = argv[1];
 	if(check_create_map(&data.map))
 		return (ft_printf("Error\nWrong Extension: %s\n", strerror(59)));
+	init_game(&data);
 	ft_printf("Player: %d Collectible: %d Exits: %d\n", data.map.infos_map.player_number, data.map.infos_map.collectible, data.map.infos_map.exits);
 	int a = 0;
 	for (size_t i = 0; i < data.map.height; i++)
@@ -209,15 +248,4 @@ int	main(int argc, char **argv)
 		}
 		ft_printf("\n");
 	}
-	
-	
-	// data.window.mlx_ptr = mlx_init();
-	// if (data.window.mlx_ptr == NULL)
-	// 	return (-1);
-	// data.window.mlx_win = mlx_new_window(data.window.mlx_ptr, (data.map.width * 8), (data.map.height * 8), "so long");
-	// if (data.window.mlx_win == NULL)
-	// {
-	// 	free(data.window.mlx_win);
-	// 	return (-1);
-	// }
 }

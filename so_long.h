@@ -29,10 +29,20 @@ typedef struct s_map
 	t_elements infos_map;
 }	t_map;
 
+typedef struct s_sprites
+{
+	void *player;
+	void *collectible;
+	void *exits[2];
+	void *wall;
+}	t_sprites;
+
+
 typedef struct s_data
 {
 	t_window window;
 	t_map map;
+	t_sprites sprites;
 }	t_data;
 
 
