@@ -188,23 +188,67 @@ int	check_create_map(t_map *map)
 
 void	place_sprites(t_window *window, t_sprites *sprites)
 {
+	int number;
+	int *size;
+
+	number = 64;
+	size = &number;
 	sprites->wall = mlx_xpm_file_to_image(window->mlx_ptr,
-			".sprites/Wall.xpm", 64, 64);
+			"sprites/Wall.xpm", size, size);
 	sprites->collectible = mlx_xpm_file_to_image(window->mlx_ptr,
-			".sprites/Collect.xpm", 64, 64);
+			"sprites/Collect.xpm", size, size);
 	sprites->exits[0] = mlx_xpm_file_to_image(window->mlx_ptr,
-			".sprites/exit_close.xpm", 64, 64);
+			"sprites/exit_close.xpm", size, size);
 	sprites->exits[1] = mlx_xpm_file_to_image(window->mlx_ptr,
-			".sprites/exit_open.xpm", 64, 64);
+			"sprites/exit_open.xpm", size, size);
+	sprites->floor = mlx_xpm_file_to_image(window->mlx_ptr,
+			"sprites/floor.xpm", size, size);
+	sprites->player = mlx_xpm_file_to_image(window->mlx_ptr,
+			"sprites/mage.xpm", size, size);
 }
 
-void	render_map(t_window *window, t_map *map_info, t_sprites *sprites)
+void	sprite_print(t_window *window, t_map *map, t_sprites *sprites)
 {
-	//render passing throw the map while print
+	if (map->map[map->pos_y][map->pos_x] == '1')
+		mlx_put_image_to_window(window->mlx_ptr, window->mlx_win, sprites->wall,
+		window->window_x, window->window_y);
+	if (map->map[map->pos_y][map->pos_x] == '0')
+		mlx_put_image_to_window(window->mlx_ptr, window->mlx_win, sprites->floor,
+		window->window_x, window->window_y);
+	if (map->map[map->pos_y][map->pos_x] == 'C')
+		mlx_put_image_to_window(window->mlx_ptr, window->mlx_win, sprites->collectible,
+		window->window_x, window->window_y);
+	if (map->map[map->pos_y][map->pos_x] == 'P')
+		mlx_put_image_to_window(window->mlx_ptr, window->mlx_win, sprites->player,
+		window->window_x, window->window_y);
+	if (map->map[map->pos_y][map->pos_x] == 'E')
+		mlx_put_image_to_window(window->mlx_ptr, window->mlx_win, sprites->exits[0],
+		window->window_x, window->window_y);
+}
+
+void	render_map(t_window *window, t_map *map, t_sprites *sprites)
+{
+	map->pos_x = 0;
+	map->pos_y = 0;
+	while (window->window_y < (map->height * 64))
+	{
+		window->window_x = 0;
+		map->pos_x = 0;
+		while (window->window_x < (map->width * 64))
+		{	
+			sprite_print(window, map, sprites);
+			window->window_x += 64;
+			map->pos_x++;
+			
+		}		
+		window->window_y += 64;
+		map->pos_y++;
+	}
 }
 
 int	action_loop(t_data *data)
 {
+	
 	render_map(&data->window, &data->map, &data->sprites);
 	return (0);
 }
@@ -222,6 +266,7 @@ int	init_game(t_data *data)
 	}
 	place_sprites(&data->window, &data->sprites);
 	mlx_loop_hook(data->window.mlx_ptr, action_loop, (void *)data);
+	mlx_loop(data->window.mlx_ptr);
 }
 
 int	main(int argc, char **argv)
@@ -236,16 +281,4 @@ int	main(int argc, char **argv)
 	if(check_create_map(&data.map))
 		return (ft_printf("Error\nWrong Extension: %s\n", strerror(59)));
 	init_game(&data);
-	ft_printf("Player: %d Collectible: %d Exits: %d\n", data.map.infos_map.player_number, data.map.infos_map.collectible, data.map.infos_map.exits);
-	int a = 0;
-	for (size_t i = 0; i < data.map.height; i++)
-	{
-		a = 0;
-		while(a < data.map.width)
-		{
-			ft_printf("%c",data.map.map[i][a]);
-			a++;
-		}
-		ft_printf("\n");
-	}
 }

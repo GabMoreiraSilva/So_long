@@ -11,7 +11,7 @@ MLX = minilibx-linux/libmlx.a
 all: ${NAME} ${LIB} ${MLX}
 
 ${NAME}: ${OBJS} ${LIB}
-	${CC} -g3 ${OBJS} ${LIB} -o ${NAME} ${FLAGMLX}
+	${CC} -g3 ${OBJS} ${LIB} ${MLX} -o ${NAME} ${FLAGMLX}
 
 %.o: %.c
 	${CC} -g3 -c $< -o $@

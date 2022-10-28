@@ -5,11 +5,14 @@
 # include <math.h>
 #include <string.h>
 # include "./libft/libft.h"
+# include "minilibx-linux/mlx.h"
 
 typedef struct s_window
 {	
 	void *mlx_ptr;
 	void *mlx_win;
+	int window_x;
+	int window_y;
 }	t_window;
 
 typedef struct s_elements
@@ -24,6 +27,8 @@ typedef struct s_map
 {
 	int width;
 	int height;
+	int pos_x;
+	int pos_y;
 	char *path;
 	char **map;
 	t_elements infos_map;
@@ -35,6 +40,7 @@ typedef struct s_sprites
 	void *collectible;
 	void *exits[2];
 	void *wall;
+	void *floor;
 }	t_sprites;
 
 
