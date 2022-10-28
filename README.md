@@ -54,3 +54,7 @@ Bom já temos o objetivo
 
 <img width=160 src="https://media4.giphy.com/media/RbDKaczqWovIugyJmW/giphy.gif?cid=ecf05e47ppvdfs5rdxg4qsec46wmzqdmq0m7d70q70yw35oq&rid=giphy.gif&ct=g" />
 
+## FOI CONSEGUI PRINTAR NA TELA
+![image](https://user-images.githubusercontent.com/53486357/198454277-874a7fcc-5899-4c93-b2f2-bc9d917b4c54.png)
+
+
